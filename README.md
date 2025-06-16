@@ -10,15 +10,15 @@ More broadly, the deterministic and exact nature of the Linear Equation Neuron o
 
 #
 
-| Neuron Type              | Input Format                              | Output Format                   | Primary Function                                      | Use Case                                                      |
-|--------------------------|-------------------------------------------|----------------------------------|--------------------------------------------------------|----------------------------------------------------------------|
-| LEN-Simplex              | Square matrix \( A \) and vector \( b \)  | Solution vector \( x \)         | Solves square linear systems using Gaussian elimination | Deterministic systems with equal number of equations & variables |
-| LEN-Overdetermined       | \( A \in \mathbb{R}^{m \times n}, m>n \)  | Least-squares vector \( x \)    | Pseudo-inverse solution using normal equations          | Systems with more equations than variables (e.g., sensor fusion) |
-| LEN-Underdetermined      | \( A \in \mathbb{R}^{m \times n},\ b \in \mathbb{R}^m,\ m < n \) | Minimum norm solution \( x \in \mathbb{R}^n \) | Returns solution with minimal \( \|x\| \) using \( x = A^T(AA^T)^{-1}b \) | Sparse coding, compressed sensing                                |
-| LEN-Batched              | Batch of \( A, b \) pairs                 | Batch of solution vectors \( x \)| Parallel Gaussian elimination per system                | Real-time simulation, multi-instance systems                   |
-| LEN-Parametric           | Symbolic \( A(t), b(t) \)                 | Symbolic or evaluated \( x(t) \)| Solves parameterized systems                            | Control theory, differential equation modeling                 |
-| LEN-Sparse               | Sparse matrix \( A \), vector \( b \)     | Solution vector \( x \)         | Optimized elimination for sparse matrices               | Large-scale systems (e.g., PDE discretizations)                |
-| LEN-Iterative Hybrid     | Matrix \( A \), vector \( b \)            | Approximate solution \( x \)    | Combines elimination + iterative refinement             | When fast but good-enough solutions are needed                 |
+| **Neuron Type**          | **Input Format**                                     | **Output Format**                | **Primary Function**                                        | **Use Case**                                                    |
+|--------------------------|------------------------------------------------------|----------------------------------|--------------------------------------------------------------|------------------------------------------------------------------|
+| **LEN-Simplex**          | Square matrix \( A \in \mathbb{R}^{n \times n} \), vector \( b \in \mathbb{R}^n \) | Solution vector \( x \in \mathbb{R}^n \) | Solves square linear systems via Gaussian elimination         | Deterministic systems with equal number of equations and variables |
+| **LEN-Overdetermined**   | \( A \in \mathbb{R}^{m \times n},\ b \in \mathbb{R}^m,\ m > n \) | Least-squares solution \( x \in \mathbb{R}^n \) | Solves using normal equations \( A^TAx = A^Tb \)               | Systems with more equations than variables (e.g., sensor fusion)   |
+| **LEN-Underdetermined**  | \( A \in \mathbb{R}^{m \times n},\ b \in \mathbb{R}^m,\ m < n \) | Minimum norm solution \( x \in \mathbb{R}^n \) | Returns solution with minimal \( \|x\| \) using \( x = A^T(AA^T)^{-1}b \) | Sparse coding, compressed sensing                                |
+| **LEN-Batched**          | Batch of \( (A_i, b_i) \) pairs                      | Batch of solution vectors \( x_i \) | Parallel Gaussian elimination across systems                  | Real-time simulation, multi-instance systems                     |
+| **LEN-Parametric**       | Symbolic \( A(t),\ b(t) \)                           | Symbolic or evaluated \( x(t) \) | Solves parameterized systems \( A(t)x(t) = b(t) \)            | Control theory, differential equation modeling                   |
+| **LEN-Sparse**           | Sparse matrix \( A \), vector \( b \)                | Solution vector \( x \)          | Optimized Gaussian elimination leveraging sparsity            | Large-scale systems (e.g., PDE discretizations)                  |
+| **LEN-Iterative Hybrid** | Matrix \( A \), vector \( b \)                       | Approximate solution \( x \)     | Gaussian elimination with iterative refinement                | Fast approximate solutions when full precision isn't critical     |
 
 #
 
